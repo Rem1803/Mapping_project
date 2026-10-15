@@ -38,13 +38,36 @@ class Bwt:
    
     ###Méthodes 
 
-    #def first_last(self, colonne_BWT):
-    #"""Fonction qui attribue à chaque caractère de la colonne_BWT son indice dans la 1ere colonne de la suffix array
-    #Entrée : list, la colonne_BWT
-    #Sortie : list, la liste des positions de chaque caractère de l'alphabet A,T,C,G,$
-    #-> renvoie le numéro de la ligne dans la premiere colonne qui correspond à la lettre i de la bwt
-    #"""
-     #compter le nombre de chaque caractères
+    def first_last(self, colonne_BWT):
+            """Fonction qui attribue à chaque caractère de la colonne_BWT son indice dans la 1ere colonne de la suffix array
+            Entrée : list, la colonne_BWT
+            Sortie : list, la liste des positions de chaque caractère de l'alphabet A,T,C,G,$
+            -> renvoie le numéro de la ligne dans la premiere colonne qui correspond à la lettre i de la bwt
+            """
+            # Compter le nombre de chaque caractère
+            L_pos = [] #liste des positions de chaque lettre dans la première colonne
+            count_A = 0
+            count_T = 0
+            count_C = 0
+            count_G = 0
+            count_doll= 0
+            for elem in self.colonne_bwt:
+                if elem == 'A' :
+                    count_A += 1
+                    L_pos.append(count_A)
+                elif elem == 'T' :
+                    count_T += 1
+                    L_pos.append(count_T)
+                elif elem == 'C' :
+                    count_C += 1
+                    L_pos.append(count_C)
+                elif elem == 'G' :
+                    count_G += 1
+                    L_pos.append(count_G)
+                elif elem == '$' :
+                    count_doll += 1
+                    L_pos.append(count_doll)
+            return self, L_pos
 
 
     def recherche_motif(self, sequence_cherchee):
