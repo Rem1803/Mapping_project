@@ -141,7 +141,7 @@ class DC3:
         self.P_0 = [i for i in range(n) if i % 3 == 0]
         self.P_1 = [i for i in range(n) if i % 3 == 1]
         self.P_2 = [i for i in range(n) if i % 3 == 2]
-        self.P_12 = self.P_1 + self.P_2
+        self.P_12 = sorted(self.P_1 + self.P_2)
 
         # Cas particulier DC3 : ajoute une position sentinelle à l'échantillon.
         if n % 3 == 1:
