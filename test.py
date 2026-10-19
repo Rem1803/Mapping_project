@@ -1,4 +1,18 @@
 texte = "ACATACAGATG$"
+
+
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+
+# Génome de référence au format FASTA
+record_reference = list(SeqIO.parse("GCF_000002765.5_GCA_000002765_genomic.fna", "fasta"))
+
+# Reads au format FASTQ
+record_reads = list(SeqIO.parse("single_Pfal_dat.fq", "fastq"))
+
+
+
 class Triplets:
 
     def __init__(self, T=None, P=None, R=None):
@@ -282,24 +296,27 @@ class Bwt:
         return positions
 
 
+sequence = ""
+for chromosome in record_reference:
+    sequence += str(chromosome.seq)
+sequence += "$"
 
-
+reads = list(str(record_reads[i].seq) for i in range(0,8))
 
  
 
-texte = "ACATACAGATG$"
-attendu = sorted(range(len(texte)), key=lambda i: texte[i:])
+texte = sequence
 
 if __name__ == "__main__": 
     resultat = DC3(texte).suffix_array
-    print("Obtenu :", resultat)
-    print("Attendu :", attendu)
-    assert resultat == attendu
+    #print("Obtenu :", resultat)
+    #print("Attendu :", attendu)
+    #assert resultat == attendu
 
     suffix_array = resultat
     objet_bwt = Bwt(texte, suffix_array) #création d'un objet bwt
 
-    for motif in ["CGA", "ACA", "GAT", "TG", "ACATACAGATG"]:
+    for motif in reads:
         positions = objet_bwt.recherche_motif_intervalles(motif)
         if positions: #si le motif est présent
             print(f"{motif} a été trouvée aux positions {positions}.")
